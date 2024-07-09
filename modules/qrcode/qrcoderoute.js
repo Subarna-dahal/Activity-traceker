@@ -1,5 +1,4 @@
-const router = require("express").Router();
-
+const router = require('express').Router();
 const QRController = require("./qrcontroller");
 router.get("/", (req, res) => {
   res.json({ msg: "All the data are in the database" });
@@ -38,4 +37,4 @@ router.delete("/:id", (res, req) => {
   const { id } = req.params;
   res.json({ msg: `deleting${id} fro, database` });
 });
-module.export = router;
+module.exports = router;

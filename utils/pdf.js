@@ -1,17 +1,30 @@
-const PDFDocument=require('pdfkit');
-const fs=require('fs');
 
-const PDfDoc=new PDFDocument();
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
 
-PDfDoc.pipe(fs.createWriteStream("Document.pdf"));
+const createPDF = (text, image) => {
+  return new Promise((resolve, reject) => {
+    const doc = new PDFDocument();
+    const writeStream = fs.createWriteStream("Document.pdf");
+    doc.pipe(writeStream);
 
-PDfDoc.text("this is my pdf",100,100);
+    doc.text(text, 100, 100);
+    doc.image(image, {
+      fit: [250, 300],
+      align: 'center',
+      valign: 'center'
+    });
 
-PDfDoc.image("./img.jpg",{
-    fit:[250,300],
-    align:"centre",
-    valign:"centre",
+    doc.end();
 
-})
+    writeStream.on('finish', () => {
+      resolve("PDF created successfully");
+    });
 
-PDfDoc.end();
+    writeStream.on('error', (error) => {
+      reject(error);
+    });
+  });
+};
+
+module.exports = createPDF;

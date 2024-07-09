@@ -1,9 +1,11 @@
-const {genqr}=require('../../utils/qrcode');
-const createqr=async(payload)=>{
-const {url}=payload;
-const isvalidURL = url.includes("https://");
-  if (!isvalidURL) throw new Error("Invalid URl");
+const { genqr } = require('../../utils/qrcode');
+
+const createqr = async (payload) => {
+  const { url } = payload;
+  const isValidURL = url.includes("https://");
+  if (!isValidURL) throw new Error("Invalid URL");
   const result = await genqr(url);
   return result;
-}
-module.exports={createqr};
+};
+
+module.exports= { createqr };

@@ -1,41 +1,45 @@
-const router = require("express").Router();
-const pdfcontroller = require("./pdfcontroller");
+const router = require('express').Router();
+const pdfcontroller = require('./pdfcontroller');
 
-router.get("/", (req, res) => {
-  res.json("all the data are in the database");
+router.get('/', (req, res) => {
+  res.json("All the data are in the database");
 });
 
-router.get("./:id", (res, req, next) => {
+router.get('/:id', (req, res, next) => {
   try {
     const id = req.params.id;
-    if (id == "subarna") throw new Error("string provided");
-    res.json({ message: `we are reading ${id} from database` });
+    if (id === 'subarna') throw new Error("String provided");
+    res.json({ message: `We are reading ${id} from database` });
   } catch (e) {
     next(e);
   }
 });
-router.post("/", (req, res, next) => {
+
+router.post('/', async (req, res, next) => {
   try {
-    const data = pdfcontroller.createpdf(req.body);
+    const data = await pdfcontroller.createpdf(req.body);
     res.json({ data: data, message: "Posting new data" });
   } catch (e) {
     next(e);
   }
 });
-router.put("./:id", (req, res) => {
+
+router.put('/:id', (req, res) => {
   const { id } = req.params;
   res.json({
     data: req.body,
-    message: `updating from the ${id} from database`,
+    message: `Updating ${id} from database`,
   });
 });
-router.patch("/:id", (req, res) => {
+
+router.patch('/:id', (req, res) => {
   const { id } = req.params;
-  res.json({ data: req.body, msg: `patching ${id} from the database` });
+  res.json({ data: req.body, msg: `Patching ${id} from database` });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete('/:id', (req, res) => {
   const { id } = req.params;
-  res.json({ msg: `deleting${id} from database` });
+  res.json({ msg: `Deleting ${id} from database` });
 });
-module.exports=router;
+
+module.exports = router;
