@@ -1,19 +1,18 @@
 const createPDF = require('../../utils/pdf');
 
-const createpdf = async (payload) => {
+const documentpdf = async (payload) => {
   const { text, image } = payload;
 
-  if (typeof image !== 'string') {
-    throw new Error("Invalid or missing image");
+  if (typeof text !== 'string') {
+    throw new Error("Invalid or missing text");
   }
 
-  const isValidImage = image.includes("./img.jpg");
-  if (!isValidImage) {
-    throw new Error("Invalid image");
+  if (typeof image !== "string" || image.trim() === "") {
+    throw new Error("Invalid IMAGE PATH");
   }
 
   const result = await createPDF(text, image);
   return result;
 };
 
-module.exports = { createpdf };
+module.exports = { documentpdf };

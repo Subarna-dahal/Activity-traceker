@@ -17,7 +17,7 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const data = await pdfcontroller.createpdf(req.body);
+    const data = await pdfcontroller.documentpdf(req.body);
     res.json({ data: data, message: "Posting new data" });
   } catch (e) {
     next(e);

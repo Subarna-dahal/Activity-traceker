@@ -1,4 +1,3 @@
-
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 
@@ -18,11 +17,11 @@ const createPDF = (text, image) => {
     doc.end();
 
     writeStream.on('finish', () => {
-      resolve("PDF created successfully");
+      resolve("PDF Created Successfully");
     });
 
-    writeStream.on('error', (error) => {
-      reject(error);
+    writeStream.on('error', (err) => {
+      reject(err);
     });
   });
 };
